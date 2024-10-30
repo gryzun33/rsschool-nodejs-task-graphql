@@ -17,6 +17,17 @@ export const RootQueryType = new GraphQLObjectType({
         return await prisma.user.findMany();
       },
     },
+    user: {
+      type: User,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve: async (_parent, { id }, { prisma }) => {
+        return await prisma.user.findUnique({
+          where: { id },
+        });
+      },
+    },
     memberTypes: {
       type: new GraphQLList(MemberType),
       resolve: async (_parent, _args, { prisma }) => {
