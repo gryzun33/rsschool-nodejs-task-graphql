@@ -1,32 +1,7 @@
 import { FastifyPluginAsyncTypebox } from '@fastify/type-provider-typebox';
 import { createGqlResponseSchema, gqlResponseSchema } from './schemas.js';
-import {
-  graphql,
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLSchema,
-  GraphQLList,
-} from 'graphql';
-
-const UserType = new GraphQLObjectType({
-  name: 'User',
-  fields: {
-    id: { type: GraphQLString },
-    name: { type: GraphQLString },
-  },
-});
-
-const RootQueryType = new GraphQLObjectType({
-  name: 'RootQueryType',
-  fields: {
-    users: {
-      type: new GraphQLList(UserType),
-      resolve: async (_parent, _args, { prisma }) => {
-        return await prisma.user.findMany();
-      },
-    },
-  },
-});
+import { graphql, GraphQLSchema } from 'graphql';
+import { RootQueryType } from './rootQueryType.js';
 
 const schema = new GraphQLSchema({
   query: RootQueryType,
