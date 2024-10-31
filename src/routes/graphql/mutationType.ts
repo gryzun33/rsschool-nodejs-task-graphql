@@ -61,7 +61,7 @@ export const MutationType = new GraphQLObjectType({
       args: {
         dto: { type: new GraphQLNonNull(CreateProfileInput) },
       },
-      resolve: async (_source, { dto }, { prisma }) => {
+      resolve: async (_parent, { dto }, { prisma }) => {
         const profile = await prisma.profile.create({
           data: {
             ...dto,
@@ -152,6 +152,42 @@ export const MutationType = new GraphQLObjectType({
           },
         });
         return post;
+      },
+    },
+    subscribeTo: {
+      type: GraphQLString,
+      args: {
+        userId: { type: new GraphQLNonNull(UUIDType) },
+        authorId: { type: new GraphQLNonNull(UUIDType) },
+      },
+      resolve: async (_parent, { userId, authorId }, { prisma }) => {
+        await prisma.subscribersOnAuthors.create({
+          data: {
+            subscriberId: userId,
+            authorId: authorId,
+          },
+        });
+
+        return `Subscribed to user with ID ${authorId} successfully.`;
+      },
+    },
+
+    unsubscribeFrom: {
+      type: GraphQLString,
+      args: {
+        userId: { type: new GraphQLNonNull(UUIDType) },
+        authorId: { type: new GraphQLNonNull(UUIDType) },
+      },
+      resolve: async (_parent, { userId, authorId }, { prisma }) => {
+        await prisma.subscribersOnAuthors.delete({
+          where: {
+            subscriberId_authorId: {
+              subscriberId: userId,
+              authorId: authorId,
+            },
+          },
+        });
+        return `Unsubscribed from user with ID ${authorId} successfully.`;
       },
     },
   },
