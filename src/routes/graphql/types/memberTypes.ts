@@ -4,7 +4,6 @@ import {
   GraphQLNonNull,
   GraphQLEnumType,
   GraphQLInt,
-  GraphQLString,
 } from 'graphql';
 
 export const MemberTypeId = new GraphQLEnumType({
