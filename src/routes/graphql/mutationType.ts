@@ -15,6 +15,9 @@ import {
   CreateUserInput,
   CreatePostInput,
   CreateProfileInput,
+  ChangeUserInput,
+  ChangeProfileInput,
+  ChangePostInput,
 } from './types/inputTypes.js';
 import { randomUUID } from 'crypto';
 import { title } from 'process';
@@ -101,6 +104,54 @@ export const MutationType = new GraphQLObjectType({
           where: { id },
         });
         return `Profile with ID ${id} removed successfully`;
+      },
+    },
+    changeUser: {
+      type: User,
+      args: {
+        id: { type: new GraphQLNonNull(UUIDType) },
+        dto: { type: new GraphQLNonNull(ChangeUserInput) },
+      },
+      resolve: async (_parent, { id, dto }, { prisma }) => {
+        const user = await prisma.user.update({
+          where: { id },
+          data: {
+            ...dto,
+          },
+        });
+        return user;
+      },
+    },
+    changeProfile: {
+      type: Profile,
+      args: {
+        id: { type: new GraphQLNonNull(UUIDType) },
+        dto: { type: new GraphQLNonNull(ChangeProfileInput) },
+      },
+      resolve: async (_parent, { id, dto }, { prisma }) => {
+        const profile = await prisma.profile.update({
+          where: { id },
+          data: {
+            ...dto,
+          },
+        });
+        return profile;
+      },
+    },
+    changePost: {
+      type: Post,
+      args: {
+        id: { type: new GraphQLNonNull(UUIDType) },
+        dto: { type: new GraphQLNonNull(ChangePostInput) },
+      },
+      resolve: async (_parent, { id, dto }, { prisma }) => {
+        const post = await prisma.post.update({
+          where: { id },
+          data: {
+            ...dto,
+          },
+        });
+        return post;
       },
     },
   },
