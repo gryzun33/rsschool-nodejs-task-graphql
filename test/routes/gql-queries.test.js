@@ -64,7 +64,6 @@ await test('gql-queries', async (t) => {
     const { body: user1 } = await createUser(app);
     const { body: post1 } = await createPost(app, user1.id);
     const { body: profile1 } = await createProfile(app, user1.id, MemberTypeId.BASIC);
-    console.log('MemberTypeId.BASIC=', MemberTypeId.BASIC);
 
     const {
       body: { data },
