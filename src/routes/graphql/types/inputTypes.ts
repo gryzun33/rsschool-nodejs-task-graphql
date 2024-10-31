@@ -1,40 +1,66 @@
-type CreateUserInput = {
-  name: string;
-  balance: number;
-};
+import {
+  GraphQLBoolean,
+  GraphQLFloat,
+  GraphQLInputObjectType,
+  GraphQLInt,
+  GraphQLNonNull,
+  GraphQLObjectType,
+  GraphQLString,
+} from 'graphql';
+import { UUIDType } from './uuid.js';
+import { MemberTypeId } from './memberTypes.js';
 
-type ChangeUserInput = {
-  name?: string;
-  balance?: number;
-};
+export const CreateUserInput = new GraphQLInputObjectType({
+  name: 'CreateUserInput',
+  fields: {
+    name: { type: new GraphQLNonNull(GraphQLString) },
+    balance: { type: new GraphQLNonNull(GraphQLFloat) },
+  },
+});
 
-type CreatePostInput = {
-  title: string;
-  content: string;
-  authorId: UUID;
-};
+export const CreatePostInput = new GraphQLInputObjectType({
+  name: 'CreatePostInput',
+  fields: {
+    title: { type: new GraphQLNonNull(GraphQLString) },
+    content: { type: new GraphQLNonNull(GraphQLString) },
+    authorId: { type: new GraphQLNonNull(UUIDType) },
+  },
+});
+// export type ChangeUserInput = {
+//   name?: string;
+//   balance?: number;
+// };
 
-type ChangePostInput = {
-  title?: string;
-  content?: string;
-};
+// export type CreatePostInput = {
+//   title: string;
+//   content: string;
+//   authorId: UUID;
+// };
 
-type CreateProfileInput = {
-  isMale: boolean;
-  yearOfBirth: number;
-  userId: UUID;
-  memberTypeId: MemberTypeId;
-};
+// export type ChangePostInput = {
+//   title?: string;
+//   content?: string;
+// };
 
-type ChangeProfileInput = {
-  isMale?: boolean;
-  yearOfBirth?: number;
-  memberTypeId?: MemberTypeId;
-};
+export const CreateProfileInput = new GraphQLInputObjectType({
+  name: 'CreateProfileInput',
+  fields: {
+    isMale: { type: new GraphQLNonNull(GraphQLBoolean) },
+    yearOfBirth: { type: new GraphQLNonNull(GraphQLInt) },
+    userId: { type: new GraphQLNonNull(UUIDType) },
+    memberTypeId: { type: new GraphQLNonNull(MemberTypeId) },
+  },
+});
 
-enum MemberTypeId {
-  BASIC = 'BASIC',
-  BUSINESS = 'BUSINESS',
-}
+// export type ChangeProfileInput = {
+//   isMale?: boolean;
+//   yearOfBirth?: number;
+//   memberTypeId?: MemberTypeId;
+// };
+
+// enum MemberTypeId {
+//   BASIC = 'BASIC',
+//   BUSINESS = 'BUSINESS',
+// }
 
 type UUID = string;
