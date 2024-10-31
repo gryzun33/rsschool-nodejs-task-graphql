@@ -2,9 +2,11 @@ import { FastifyPluginAsyncTypebox } from '@fastify/type-provider-typebox';
 import { createGqlResponseSchema, gqlResponseSchema } from './schemas.js';
 import { graphql, GraphQLSchema } from 'graphql';
 import { RootQueryType } from './rootQueryType.js';
+import { MutationType } from './mutationType.js';
 
 const schema = new GraphQLSchema({
   query: RootQueryType,
+  mutation: MutationType,
 });
 
 const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
