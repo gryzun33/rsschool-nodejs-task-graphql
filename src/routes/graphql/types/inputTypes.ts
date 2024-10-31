@@ -26,21 +26,6 @@ export const CreatePostInput = new GraphQLInputObjectType({
     authorId: { type: new GraphQLNonNull(UUIDType) },
   },
 });
-// export type ChangeUserInput = {
-//   name?: string;
-//   balance?: number;
-// };
-
-// export type CreatePostInput = {
-//   title: string;
-//   content: string;
-//   authorId: UUID;
-// };
-
-// export type ChangePostInput = {
-//   title?: string;
-//   content?: string;
-// };
 
 export const CreateProfileInput = new GraphQLInputObjectType({
   name: 'CreateProfileInput',
@@ -51,16 +36,3 @@ export const CreateProfileInput = new GraphQLInputObjectType({
     memberTypeId: { type: new GraphQLNonNull(MemberTypeId) },
   },
 });
-
-// export type ChangeProfileInput = {
-//   isMale?: boolean;
-//   yearOfBirth?: number;
-//   memberTypeId?: MemberTypeId;
-// };
-
-// enum MemberTypeId {
-//   BASIC = 'BASIC',
-//   BUSINESS = 'BUSINESS',
-// }
-
-type UUID = string;

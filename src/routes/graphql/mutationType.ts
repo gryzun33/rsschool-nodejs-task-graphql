@@ -67,5 +67,41 @@ export const MutationType = new GraphQLObjectType({
         return profile;
       },
     },
+    deleteUser: {
+      type: GraphQLString,
+      args: {
+        id: { type: new GraphQLNonNull(UUIDType) },
+      },
+      resolve: async (_parent, { id }, { prisma }) => {
+        await prisma.user.delete({
+          where: { id },
+        });
+        return `User with ID ${id} removed successfully`;
+      },
+    },
+    deletePost: {
+      type: GraphQLString,
+      args: {
+        id: { type: new GraphQLNonNull(UUIDType) },
+      },
+      resolve: async (_parent, { id }, { prisma }) => {
+        await prisma.post.delete({
+          where: { id },
+        });
+        return `Post with ID ${id} removed successfully`;
+      },
+    },
+    deleteProfile: {
+      type: GraphQLString,
+      args: {
+        id: { type: new GraphQLNonNull(UUIDType) },
+      },
+      resolve: async (_parent, { id }, { prisma }) => {
+        await prisma.profile.delete({
+          where: { id },
+        });
+        return `Profile with ID ${id} removed successfully`;
+      },
+    },
   },
 });
