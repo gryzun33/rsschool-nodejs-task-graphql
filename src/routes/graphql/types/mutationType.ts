@@ -1,16 +1,8 @@
-import {
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLNonNull,
-  GraphQLList,
-  GraphQLFloat,
-  GraphQLInputObjectType,
-} from 'graphql';
-import { User } from './types/users.js';
-import { MemberType, MemberTypeId } from './types/memberTypes.js';
-import { Post } from './types/posts.js';
-import { Profile } from './types/profiles.js';
-import { UUIDType } from './types/uuid.js';
+import { GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
+import { User } from './users.js';
+import { Post } from './posts.js';
+import { Profile } from './profiles.js';
+import { UUIDType } from './uuid.js';
 import {
   CreateUserInput,
   CreatePostInput,
@@ -18,9 +10,7 @@ import {
   ChangeUserInput,
   ChangeProfileInput,
   ChangePostInput,
-} from './types/inputTypes.js';
-import { randomUUID } from 'crypto';
-import { title } from 'process';
+} from './inputTypes.js';
 
 export const MutationType = new GraphQLObjectType({
   name: 'Mutation',
